@@ -68,10 +68,10 @@ Supports all key Monopoly properties with board-accurate positions.
 -  Railroads (positions 5, 15, 25, 35)
 
 ## Future Enhancements
- AI-driven decision engine based on opponent holdings
+- AI-driven decision engine based on opponent holdings
 
-🎲 Dice-roll simulations for landing probabilities
+- Dice-roll simulations for landing probabilities
 
-📈 Monte Carlo simulations for long-term ROI
+- Monte Carlo simulations for long-term ROI
 
-🌐 Multiplayer board tracker with cloud sync
+- Multiplayer board tracker with cloud sync
