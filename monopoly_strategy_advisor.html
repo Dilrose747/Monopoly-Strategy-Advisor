@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Monopoly Strategy Advisor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label, textarea, input, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .recommendations {
+      margin-top: 20px;
+      background: #e9ecef;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Monopoly Strategy Advisor</h1>
+    <label for="cash">Your Cash ($):</label>
+    <input type="number" id="cash" value="500">
+
+    <label for="position">Current Position (0-39):</label>
+    <input type="number" id="position" value="27">
+
+    <label for="owned">Owned Properties (comma-separated):</label>
+    <textarea id="owned">Baltic Avenue</textarea>
+
+    <label for="opponents">Opponent's Properties (comma-separated):</label>
+    <textarea id="opponents">Boardwalk</textarea>
+
+    <button onclick="getRecommendation()">Get Recommendation</button>
+
+    <div class="recommendations" id="recommendations"></div>
+  </div>
+
+  <script>
+  const properties = [
+    { position: 1, name: "Mediterranean Avenue", cost: 60, rent: 2, roi: [0.07, 0.19, 0.39, 0.90, 1.29, 1.69], color: "Brown" },
+    { position: 3, name: "Baltic Avenue", cost: 60, rent: 4, roi: [0.16, 0.43, 0.88, 2.01, 2.89, 3.41], color: "Brown" },
+    { position: 6, name: "Oriental Avenue", cost: 100, rent: 6, roi: [0.14, 0.47, 1.06, 2.54, 3.13, 3.69], color: "Light Blue" },
+    { position: 8, name: "Vermont Avenue", cost: 100, rent: 6, roi: [0.14, 0.48, 1.07, 2.58, 3.18, 3.75], color: "Light Blue" },
+    { position: 9, name: "Connecticut Avenue", cost: 120, rent: 8, roi: [0.17, 0.60, 1.16, 2.84, 3.60, 4.15], color: "Light Blue" },
+    { position: 11, name: "St. Charles Place", cost: 140, rent: 10, roi: [0.18, 0.53, 1.12, 2.60, 2.94, 2.98], color: "Pink" },
+    { position: 13, name: "States Avenue", cost: 140, rent: 10, roi: [0.17, 0.49, 1.05, 2.43, 2.75, 2.78], color: "Pink" },
+    { position: 14, name: "Virginia Avenue", cost: 160, rent: 12, roi: [0.19, 0.59, 1.28, 2.79, 3.21, 3.50], color: "Pink" },
+    { position: 16, name: "St. James Place", cost: 180, rent: 14, roi: [0.22, 0.71, 1.50, 3.27, 3.69, 3.98], color: "Orange" },
+    { position: 18, name: "Tennessee Avenue", cost: 180, rent: 14, roi: [0.23, 0.73, 1.53, 3.33, 3.76, 4.06], color: "Orange" },
+    { position: 19, name: "New York Avenue", cost: 200, rent: 16, roi: [0.22, 0.75, 1.54, 3.35, 3.73, 3.99], color: "Orange" },
+    { position: 21, name: "Kentucky Avenue", cost: 220, rent: 18, roi: [0.21, 0.63, 1.25, 2.72, 2.78, 2.82], color: "Red" },
+    { position: 23, name: "Indiana Avenue", cost: 220, rent: 18, roi: [0.21, 0.62, 1.23, 2.66, 2.72, 2.76], color: "Red" },
+    { position: 24, name: "Illinois Avenue", cost: 240, rent: 20, roi: [0.23, 0.72, 1.56, 3.06, 3.02, 3.13], color: "Red" },
+    { position: 26, name: "Atlantic Avenue", cost: 260, rent: 22, roi: [0.23, 0.74, 1.64, 3.13, 3.07, 3.16], color: "Yellow" },
+    { position: 27, name: "Ventnor Avenue", cost: 260, rent: 22, roi: [0.24, 0.76, 1.68, 3.21, 3.14, 3.24], color: "Yellow" },
+    { position: 29, name: "Marvin Gardens", cost: 280, rent: 24, roi: [0.23, 0.74, 1.65, 3.10, 3.02, 3.10], color: "Yellow" },
+    { position: 31, name: "Pacific Avenue", cost: 300, rent: 26, roi: [0.23, 0.69, 1.47, 2.64, 2.64, 2.59], color: "Green" },
+    { position: 32, name: "North Carolina Avenue", cost: 300, rent: 26, roi: [0.21, 0.63, 1.35, 2.42, 2.42, 2.37], color: "Green" },
+    { position: 34, name: "Pennsylvania Avenue", cost: 320, rent: 28, roi: [0.22, 0.72, 1.56, 2.72, 2.68, 2.65], color: "Green" },
+    { position: 37, name: "Park Place", cost: 350, rent: 35, roi: [0.21, 0.67, 1.40, 2.43, 2.37, 2.33], color: "Dark Blue" },
+    { position: 39, name: "Boardwalk", cost: 400, rent: 50, roi: [0.29, 0.78, 1.75, 3.28, 3.31, 3.34], color: "Dark Blue" }
+    // Railroads
+  ,{ position: 5, name: "Reading Railroad", cost: 200, rent: 25, roi: [0.13, 0.26, 0.39, 0.52], color: "Railroad" },
+  { position: 15, name: "Pennsylvania Railroad", cost: 200, rent: 25, roi: [0.13, 0.26, 0.39, 0.52], color: "Railroad" },
+  { position: 25, name: "B&O Railroad", cost: 200, rent: 25, roi: [0.13, 0.26, 0.39, 0.52], color: "Railroad" },
+  { position: 35, name: "Short Line", cost: 200, rent: 25, roi: [0.13, 0.26, 0.39, 0.52], color: "Railroad" },
+
+  // Utilities
+  { position: 12, name: "Electric Company", cost: 150, rent: 0, roi: [0.06, 0.14], color: "Utility" },
+  { position: 28, name: "Water Works", cost: 150, rent: 0, roi: [0.06, 0.14], color: "Utility" },
+
+  
+  ];
+
+  function getRecommendation() {
+    const cash = parseInt(document.getElementById("cash").value);
+    const position = parseInt(document.getElementById("position").value);
+    const owned = document.getElementById("owned").value.split(",").map(p => p.trim());
+    const opponents = document.getElementById("opponents").value.split(",").map(p => p.trim());
+
+    const recommendationsDiv = document.getElementById("recommendations");
+    recommendationsDiv.innerHTML = "";
+
+    const currentProperty = properties.find(p => p.position === position);
+    if (!currentProperty) {
+      recommendationsDiv.innerHTML = "This position does not correspond to a purchasable property.";
+      return;
+    }
+
+    const roiBase = currentProperty.roi[0];
+    let msg = `<strong>📍 Current Property:</strong> ${currentProperty.name}<br>`;
+    msg += `Cost: $${currentProperty.cost} | Rent: $${currentProperty.rent}<br>`;
+
+    if (cash >= currentProperty.cost && roiBase > 0.20) {
+      msg += `💰 <strong>Buy</strong> ${currentProperty.name} based on high ROI (${roiBase})<br>`;
+    } else {
+      msg += `❌ <strong>Skip</strong> this property due to low ROI or insufficient cash.<br>`;
+    }
+
+    // ROI Table
+        msg += `<table border="1" cellpadding="5" cellspacing="0" style="margin-top:10px;">
+              <tr><th>Level</th><th>ROI (%)</th></tr>`;
+    currentProperty.roi.forEach((roi, i) => {
+      msg += `<tr><td>${i === 5 ? "Hotel" : `House ${i}`}</td><td>${(roi * 100).toFixed(2)}</td></tr>`;
+    });
+    msg += `</table><br>`;
+
+
+    // Suggest building
+    if (owned.includes(currentProperty.name)) {
+      const bestROI = Math.max(...currentProperty.roi);
+      const bestLevel = currentProperty.roi.indexOf(bestROI);
+      msg += `🏠 Best ROI at development level: ${bestLevel === 5 ? "Hotel" : `House ${bestLevel}`} (${(bestROI * 100).toFixed(2)}%)<br>`;
+    }
+
+       // Trade suggestion
+    const colorGroup = currentProperty.color;
+    if (colorGroup && colorGroup !== "Railroad" && colorGroup !== "Utility") {
+      const groupProps = properties.filter(p => p.color === colorGroup).map(p => p.name);
+      const missing = groupProps.filter(p => !owned.includes(p));
+      const available = missing.filter(p => opponents.includes(p));
+      if (available.length > 0) {
+        msg += `🔄 <strong>Consider trading</strong> for: ${available.join(", ")} to complete the ${colorGroup} set.<br>`;
+      }
+    }
+
+
+    recommendationsDiv.innerHTML = msg;
+  }
+
+</script>
+</body>
+</html>
