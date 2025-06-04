@@ -28,47 +28,47 @@ Utilities (e.g., Water Works, Electric Company)
 ## Technologies Used
 | Tool	| Purpose |
 |-------|--------|
-HTML5	Structuring the application and inputs
-CSS3	Styling for clean, modern, and responsive layout
-Vanilla JavaScript (ES6+)	Core logic: parsing input, handling board position, computing ROI, dynamic UI rendering
-Data Modeling (JS Objects)	Simulates Monopoly board properties including cost, color group, rent levels, and ROI values
+| HTML5 |	Structuring the application and inputs |
+| CSS3 |	Styling for clean, modern, and responsive layout |
+| Vanilla JavaScript (ES6+) |	Core logic: parsing input, handling board position, computing ROI, dynamic UI rendering |
+| Data Modeling (JS Objects) |	Simulates Monopoly board properties including cost, color group, rent levels, and ROI values |
 
-📸 Demo
-🖼️ Visit the app: Try the live demo
+## Demo
+ Visit the app: Try the live demo
 
 
-A simple UI for a powerful board game strategy engine.
+## A simple UI for a powerful board game strategy engine.
 
-🧮 Example Use
-Input your current cash (e.g., $600).
+### Example Use
+- Input your current cash (e.g., $600).
 
-Enter your current position on the board (0–39).
+- Enter your current position on the board (0–39).
 
-Provide a comma-separated list of your owned properties.
+- Provide a comma-separated list of your owned properties.
 
-Enter properties owned by opponents.
+- Enter properties owned by opponents.
 
-Click "Get Recommendation" – see if the landed property is worth buying!
+- Click "Get Recommendation" – see if the landed property is worth buying!
 
-🗺️ Property Reference
+## Property Reference
 Supports all key Monopoly properties with board-accurate positions.
 
-ROI is pre-calculated for:
+### ROI is pre-calculated for:
 
-Base (undeveloped)
+- Base (undeveloped)
 
-1–4 Houses
+- 1–4 Houses
 
-Hotel
+- Hotel
 
-Includes special properties like:
+## Includes special properties like:
 
-🔌 Utilities (position 12 & 28)
+- Utilities (position 12 & 28)
 
-🚂 Railroads (positions 5, 15, 25, 35)
+-  Railroads (positions 5, 15, 25, 35)
 
-💡 Future Enhancements
-🧠 AI-driven decision engine based on opponent holdings
+## Future Enhancements
+ AI-driven decision engine based on opponent holdings
 
 🎲 Dice-roll simulations for landing probabilities
 
