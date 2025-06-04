@@ -6,14 +6,14 @@ The Monopoly Strategic Advisor is a web application that provides real-time prop
 
 Whether you’re a casual player or a game theory enthusiast, this tool brings strategic depth and data-driven gameplay to the classic board game.
 
-🚀 Features
-✅ Input current cash, board position, and owned/opponent properties
+## Features
+ - Input current cash, board position, and owned/opponent properties
 
-🔢 Calculates and displays ROI at different development levels (Base to Hotel)
+ - Calculates and displays ROI at different development levels (Base to Hotel)
 
-🧠 Provides suggestions to buy or skip based on affordability and strategic value
+ - Provides suggestions to buy or skip based on affordability and strategic value
 
-🎨 Covers all properties, including:
+ - Covers all properties, including:
 
 Streets (e.g., Boardwalk, Baltic Avenue)
 
@@ -21,12 +21,13 @@ Railroads (e.g., Reading Railroad)
 
 Utilities (e.g., Water Works, Electric Company)
 
-📊 Dynamically rendered tables showing Rent and ROI
+- Dynamically rendered tables showing Rent and ROI
 
-💡 Intuitive UI with instant results – no refresh required
+- Intuitive UI with instant results – no refresh required
 
-🛠️ Technologies Used
-Tool	Purpose
+## Technologies Used
+| Tool	| Purpose |
+|-------|--------|
 HTML5	Structuring the application and inputs
 CSS3	Styling for clean, modern, and responsive layout
 Vanilla JavaScript (ES6+)	Core logic: parsing input, handling board position, computing ROI, dynamic UI rendering
