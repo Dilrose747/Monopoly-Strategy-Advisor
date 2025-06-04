@@ -1,7 +1,7 @@
-🧠 Monopoly Strategic Advisor
+# Monopoly Strategic Advisor
 A lightweight, browser-based tool to help players make smarter Monopoly investment decisions based on ROI and game state.
 
-🎯 Overview
+## Overview
 The Monopoly Strategic Advisor is a web application that provides real-time property investment recommendations in the Monopoly board game. Given a player’s current cash, position on the board, and property ownerships, it suggests whether to buy a property based on its cost, rent potential, and Return on Investment (ROI) at various development levels.
 
 Whether you’re a casual player or a game theory enthusiast, this tool brings strategic depth and data-driven gameplay to the classic board game.
